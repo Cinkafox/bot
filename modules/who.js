@@ -32,12 +32,20 @@ class Loader {
             if(text.global) this.g = "!"
             else if(text.m) this.g = "/er"
             if(text.text.trim() === this.answer && this.echo) {
+                if(text.nick === "lewen00") {
+                    bot.chat(this.g + " Пошел на тайвань! lewen00")
+                    return;
+                }
                 bot.chat(this.g + " Верно! +500 " + text.nick)
                 bot.chat("/pay " + text.nick + " 500")
                 this.echo = false
             }
 
             if(text.text.split(" ")[0].toLowerCase() === "спрашивай") {
+                if(text.nick === "lewen00") {
+                    bot.chat(this.g + " Пошел на тайвань! lewen00")
+                    return;
+                }
                 let rand = Math.floor(Math.random()*(str.length-1));
                 console.log(rand)
                 let rawtext = str[rand].split(":");
