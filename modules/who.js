@@ -31,7 +31,7 @@ class Loader {
             this.g = "";
             if(text.global) this.g = "!"
             else if(text.m) this.g = "/er"
-            if(text.text.trim() === this.answer && this.echo) {
+            if(text.text.trim().toLowerCase() === this.answer && this.echo) {
                 if(text.nick === "lewen00") {
                     bot.chat(this.g + " Пошел на тайвань! lewen00")
                     return;

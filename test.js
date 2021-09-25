@@ -1,26 +1,4 @@
-class Loader {
-    bot = null
-    bool = false;
-    constructor(bot) {
-        this.bot = bot
-        console.log("brainfuck core enabled!");
-        this.ini()
-    }
-    ini(){
-        let nick = {}
-        let bot= this.bot;
-        let ChatParser = require('../ChatParser');
-        let chat = new ChatParser();
-        let prin = (message) => {
-            if(this.bool)
-                this.bot.off('message',prin);
-            let text = chat.parse(message.toString().trim())
-            if(text === undefined) return;
-            let g = ""
-            if(text.global) g = "!"
-            if(text.text.split(" ")[0] === "Выполни") {
-                console.log("sss")
-                const MEMORY_SIZE = 30000;
+const MEMORY_SIZE = 30000;
 const memory = new Array(MEMORY_SIZE).fill(0);
 // Instruction pointer (Points to the current INSTRUCTION)
 let ipointer = 0;
@@ -29,7 +7,7 @@ let mpointer = 0;
 // Address stack. Used to track addresses (index) of left brackets
 let astack = [];
 
-let program = text.text.split(" ")[1]
+let program = "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.";
 let input = "";
 let output = "";
 
@@ -122,19 +100,6 @@ function interpret() {
 
     }
     console.log(output);
-    bot.chat(output.trim());
     return output;
 }
 interpret()
-            text.function(2000)
-            }
-
-        }
-        bot.on('message',prin);
-
-    }
-    end(){
-        this.bool = true
-    }
-}
-module.exports = Loader

@@ -19,7 +19,7 @@
     "vec3": "^0.1.7"
   },
   "devDependencies": {
-    "prismarine-viewer": "^1.19.3",
+    "prismarine-viewer": "^1.20.0",
     "request": "^2.88.2"
   }
 }

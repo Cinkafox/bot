@@ -3,6 +3,7 @@ const minecraft = {host: "grand-play.su", port: 25565};
 const proxyur = "72.206.181.105:64935"
 const proxy = {host: proxyur.split(":")[0], port: Number(proxyur.split(":")[1])};
 const mineflayer = require('mineflayer');
+const mineflayerViewer = require('prismarine-viewer').mineflayer
 const {Vec3} = require("vec3");
 
 let normalizedPath = require('path').join(__dirname, "modules");
@@ -52,7 +53,6 @@ let bott = class {
         }
         this.bot.on('kicked', console.log)
         this.bot.on('error', console.log)
-
         this.init()
     }
 
@@ -60,12 +60,14 @@ let bott = class {
         let bot = this.bot
         setTimeout(() =>{
             bot.chat(this.deist)
+            setTimeout(() => {
             bot.setControlState('forward',true);
             bot.lookAt(new Vec3(-93,60,-675));
             setTimeout(() => {
                 bot.setControlState('forward', false);
                 this.main()
             },10000);
+        },100);
         },10000)
     }
 
@@ -77,6 +79,8 @@ let bott = class {
         let chat = new ChatParser()
 
         console.log("Я тута!")
+        mineflayerViewer(bot, { port: 8080, firstPerson: true })
+
         this.bot.on('message', (message) => {
                console.log(message.toString())
                let text = chat.parse(message.toString())
@@ -118,3 +122,4 @@ let bott = class {
 
 }
     let bottt = new bott("Leofox","/l 12341")
+    //let bot1 = new bott("Dashe4ka","/l 12341")
