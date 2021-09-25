@@ -79,16 +79,19 @@ let bott = class {
         let chat = new ChatParser()
 
         console.log("Я тута!")
-        mineflayerViewer(bot, { port: 8080, firstPerson: true })
+        //mineflayerViewer(bot, { port: 8080, firstPerson: true })
 
         this.bot.on('message', (message) => {
-               console.log(message.toString())
+               //console.log(message.toString())
                let text = chat.parse(message.toString())
                if(text === undefined) return;
-               console.log("|" + text.text + "|" + text.nick + "|")
+               console.log(name + "|" + text.text + "|" + text.nick + "|")
                if(text.text === "Релоад модули" && text.nick === "CinemaFoxProd") {
                    this.moduleload()
                    bot.chat("/m CinemaFoxProd Готово")
+               }
+               if(text.text.split(":")[0] === "создай"){
+                   new bott(text.text.split(":")[1],text.text.split(":")[2])
                }
 
 
