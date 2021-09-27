@@ -52,6 +52,9 @@ class Loader {
             if(text.text.split(" ")[0].toLowerCase() === "инфа") {
                bot.chat(this.g + "Где то " + Math.floor(Math.random()*100) + "%")
             }
+            if(text.text.split(" ")[0].toLowerCase() === "хуй") {
+                bot.chat(this.g + "Пизда")
+             }
 
     }
     end(){

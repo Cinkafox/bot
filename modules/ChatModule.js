@@ -9,8 +9,6 @@ class Loader {
         this.ini()
     }
     ini(){
-        if(this.bool)
-                this.bot.off('message',prin);
         let bot= this.bot;
         this.moduleload()
         let ChatParser = require('../ChatParser');
@@ -20,6 +18,9 @@ class Loader {
                 this.bot.off('message',prin);
             let text = chat.parse(message.toString().trim())
             if(text === undefined) return;
+            if(text.text.trim().split(" ")[0].trim() !== bot.entity.username) return; 
+            text.text = text.text.split(bot.entity.username).join("").trim()
+
             if(text.nick.trim() === "SUKA" || text.nick.trim() === "assassin1234") return;
             for(let i = 0;i<this.modulesmy.length;i++){
                 this.modulesmy[i].ini(text)

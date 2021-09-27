@@ -129,5 +129,4 @@ let bott = class {
     }
 
 }
-    let bottt = new bott("Leofox","/l 12341")
-    //let bot1 = new bott("Dashe4ka","/l 12341")
+    let bottt = new bott("Name","/l parol")
