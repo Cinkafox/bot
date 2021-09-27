@@ -15,6 +15,7 @@ class Loader {
         let nick;
         let ChatParser = require('../ChatParser');
         let chat = new ChatParser();
+        chat.check("");
        
         let go = () => {
            if(nick == null || nick.entity == null)  bool = false;
@@ -33,6 +34,7 @@ class Loader {
             let text = chat.parse(message.toString().trim())
             if(text === undefined) return;
             if(text.text.split(" ")[0] === "следуй"){
+                if(!chat.check(text.nick)) return;
                 console.log(text.text.split(" ")[1])
                 nick = bot.players[text.text.split(" ")[1]]
                 if(nick == undefined) return;

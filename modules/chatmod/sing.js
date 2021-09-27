@@ -1,32 +1,21 @@
-const ChatParser = require("../ChatParser");
-
-
 class Loader {
     bot = null
     bool = false;
+    echo = false;
+    g;
+    answer;
     constructor(bot) {
-        this.bot = bot
-        console.log("sing enabled!");
-        this.ini()
+        this.bot = bot;
+        console.log("who core enabled");
     }
-    ini(){
+    ini(message){
         let bot= this.bot;
-        let ChatParser = require('../ChatParser');
-        let chat = new ChatParser();
-        let prin = (message) => {
-            if(this.bool)
-                this.bot.off('message',prin);
-            let text = chat.parse(message.toString().trim())
-            if(text === undefined) return;
+            let text = message
             let g = ""
             if(text.global) g = "!"
             if(text.text === "Спой")
                 this.sign(3500,g)
-
-        }
-        bot.on('message',prin);
     }
-
     sign(delay,g) {
         function translit(word){
             var answer = '';
@@ -62,6 +51,5 @@ class Loader {
     end(){
         this.bool = true
     }
-
 }
 module.exports = Loader

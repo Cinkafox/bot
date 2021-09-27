@@ -77,11 +77,11 @@ let bott = class {
         let name = this.name;
         let ChatParser = require('./ChatParser')
         let chat = new ChatParser()
-
         console.log("Я тута!")
         //mineflayerViewer(bot, { port: 8080, firstPerson: true })
 
         this.bot.on('message', (message) => {
+               let fs = require("fs")
                //console.log(message.toString())
                let text = chat.parse(message.toString())
                if(text === undefined) return;
@@ -90,9 +90,13 @@ let bott = class {
                    this.moduleload()
                    bot.chat("/m CinemaFoxProd Готово")
                }
-               if(text.text.split(":")[0] === "создай"){
+               if(text.text.split(":")[0] === "создай" && text.nick === "CinemaFoxProd"){
                    new bott(text.text.split(":")[1],text.text.split(":")[2])
                }
+               if(text.text.split(":")[0] === "Добавь" && text.nick === "CinemaFoxProd"){
+                fs.appendFileSync("wl.txt","\n" + text.text.split(":")[1])
+            }
+            
 
 
         });
@@ -111,6 +115,7 @@ let bott = class {
         }
         require("fs").readdirSync(normalizedPath).forEach(function(file) {
             try {
+                if(file.split(".")[1] !== "js") return;
                 nocache("./modules/" + file);
                 let Loader = require("./modules/" + file);
                 pp.push(new Loader(bot));
