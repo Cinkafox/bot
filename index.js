@@ -51,7 +51,16 @@ let bott = class {
                 username: name
             });
         }
-        this.bot.on('kicked', console.log)
+        this.bot.on('kicked', (message) => {
+           console.log(message)
+           if(message === '{"text":"Вы были кикнуты за нахождение более 6 минут в AFK."}')
+          {
+            for (let i = 0;i<this.modulesmy.length;i++){
+                this.modulesmy[i].end();
+                delete this.modulesmy[i].instance
+            }
+          }
+        })
         this.bot.on('error', console.log)
         this.init()
     }
@@ -79,6 +88,7 @@ let bott = class {
         let chat = new ChatParser()
         console.log("Я тута!")
         //mineflayerViewer(bot, { port: 8080, firstPerson: true })
+        //в чем плюс 28 летних девушек? их 20!
 
         this.bot.on('message', (message) => {
                let fs = require("fs")
@@ -129,4 +139,4 @@ let bott = class {
     }
 
 }
-    let bottt = new bott("Name","/l parol")
+    let bottt = new bott("Leofox","/l 12341")

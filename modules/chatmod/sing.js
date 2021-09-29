@@ -6,11 +6,13 @@ class Loader {
     answer;
     constructor(bot) {
         this.bot = bot;
-        console.log("who core enabled");
+        console.log("sign core enabled");
     }
     ini(message){
         let bot= this.bot;
+
             let text = message
+            
             let g = ""
             if(text.global) g = "!"
             if(text.text === "Спой")

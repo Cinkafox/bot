@@ -18,7 +18,7 @@ class Loader {
                 this.bot.off('message',prin);
             let text = chat.parse(message.toString().trim())
             if(text === undefined) return;
-            if(text.text.trim().split(" ")[0].trim() !== bot.entity.username) return; 
+            if(text.text.trim().split(" ")[0].trim() !== bot.entity.username && !text.m && text.text.trim().split(" ")[0].trim().toLowerCase() !== "все") return; 
             text.text = text.text.split(bot.entity.username).join("").trim()
 
             if(text.nick.trim() === "SUKA" || text.nick.trim() === "assassin1234") return;

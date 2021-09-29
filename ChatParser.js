@@ -31,13 +31,13 @@ class ChatParser{
             mess = array[1];
             if (array[0].split('❤').join("").trim().split(" ")[0].trim() === "«Ⓖ»")
                 global = true;
-            return {text: mess.trim(), nick: nick.trim(), global: global,m:false,function:bypassfun,checking:this.check}
+            return {text: mess.trim(), nick: nick.trim(), global: global,m:false,function:bypassfun,checking:this.check,orig:mess.trim()}
         }else if(message.split("")[0].trim() === '['){
             array = message.trim().split("]");
             nick = array[0].split(" ")[1]
             mess = array[1];
             
-            return {text: mess.trim(), nick: nick.trim(), global: false,m:true,function:bypassfun,checking:this.check}
+            return {text: mess.trim(), nick: nick.trim(), global: false,m:true,function:bypassfun,checking:this.check,orig:mess.trim()}
         }
         }catch (e){
             return;
