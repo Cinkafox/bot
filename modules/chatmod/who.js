@@ -4,11 +4,13 @@ class Loader {
     echo = false;
     g;
     answer;
+    Item;
     constructor(bot) {
         this.bot = bot;
+        this.Item = require("prismarine-item")(bot.version);
         console.log("who core enabled");
     }
-    ini(message){
+    toNick(message){
         let bot = this.bot;
         let who1 = ["Зеленый","Мудрый","Вкусный","Приятный","Злой","Добрый","Старый","Молодой","Гендерфлюидный"]
             let who2 = ["Пацанчик","Эльф","Бутерброд","Хрен","Симпл димпл","Кролик","Инопланетянин","Мадам","Вертосексуал"]
@@ -52,10 +54,33 @@ class Loader {
             if(text.text.split(" ")[0].toLowerCase() === "инфа") {
                bot.chat(this.g + "Где то " + Math.floor(Math.random()*100) + "%")
             }
-        
+            if(text.text.toLowerCase() === "подбирайка"){
+                setTimeout(() => {
+                  prepare("filled_map",bot,this.Item)
+                },10)
+            }
+            async function prepare(blockName,bot,Item) {
+                let mcData = require('minecraft-data')(bot.version);
+                
+                let item = new Item(mcData.itemsByName[blockName].id,2,3);
+                console.log(item.metadata)
+                await bot.creative.setInventorySlot(35, item,console.log);
+                
+                await bot.toss(mcData.itemsByName[blockName].id, null, 1)
+        }
+
             
 
     }
+
+    toMess(){
+
+    }
+
+    toOther(text){
+        
+    }
+
     end(){
         this.bool = true
     }

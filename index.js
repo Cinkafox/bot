@@ -13,6 +13,7 @@ let bott = class {
     name;
     deist;
     modulesmy = [];
+    //enableproxy если true то будет использованна прокси
     enableproxy = false;
     constructor(name, deist) {
         this.name = name;
@@ -139,4 +140,4 @@ let bott = class {
     }
 
 }
-    let bottt = new bott("Leofox","/l 12341")
+    let bottt = new bott("Nick","/l 12341")

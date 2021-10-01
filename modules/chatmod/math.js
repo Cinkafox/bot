@@ -7,7 +7,7 @@ class Loader {
         this.bot = bot;
         console.log("math core enabled");
     }
-    ini(message){
+    toNick(message){
         let bot = this.bot  
         
         if(message.text.split(" ")[0].trim().toLowerCase() === "решай"){
@@ -22,6 +22,14 @@ class Loader {
              }
         }
 
+    }
+
+    toMess(){
+
+    }
+
+    toOther(text){
+        
     }
     end(){
         this.bool = true

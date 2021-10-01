@@ -3,7 +3,7 @@ const ChatParser = require("../ChatParser");
 
 class Loader {
     bot = null
-    bool = false;
+    bool1 = false;
     constructor(bot) {
         this.bot = bot
         console.log("go core enabled!");
@@ -34,14 +34,11 @@ class Loader {
             bot.setControlState('jump', false);
                return;
            }
-           //console.log(nick.entity.position.offset(0,1,0))
            bot.lookAt(nick.entity.position.offset(0,1,0))
-           //console.log(bot.physics.gravity)
-           
         }
 
         let prin = (message) => {
-            if(this.bool)
+            if(this.bool1)
                 this.bot.off('message',prin);
             let text = chat.parse(message.toString().trim())
             if(text === undefined) return;
@@ -59,16 +56,22 @@ class Loader {
             }else if(text.text.split(" ")[0] === "грав"){
                 console.log(bot.physics.gravity)
                 bot.physics.gravity = Number(text.text.split(" ")[1].trim())
+            }else if(text.text.split(" ")[0] === "следи"){
+                if(!chat.check(text.nick)) return;
+                console.log(text.text.split(" ")[1])
+                nick = bot.players[text.text.split(" ")[1]]
+                if(nick == undefined) return;
+                bool = true
             }
 
 
         }
         bot.on('message',prin);
-        bot.on('physicsTick',go)
+       
 
     }
     end(){
-        this.bool = true
+        this.bool1 = true
     }
 }
 module.exports = Loader

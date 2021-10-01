@@ -8,7 +8,7 @@ class Loader {
         this.bot = bot;
         console.log("sign core enabled");
     }
-    ini(message){
+    toNick(message){
         let bot= this.bot;
 
             let text = message
@@ -49,6 +49,13 @@ class Loader {
                 }, delay * i);
             }
         });
+    }
+    toMess(text){
+
+    }
+
+    toOther(){
+        
     }
     end(){
         this.bool = true
