@@ -67,6 +67,7 @@ class Loader {
 
         }
         bot.on('message',prin);
+        bot.on('physicTick',go)
        
 
     }
