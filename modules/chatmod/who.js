@@ -10,12 +10,12 @@ class Loader {
         this.Item = require("prismarine-item")(bot.version);
         console.log("who core enabled");
     }
-    toNick(message){
+    toNick(text){
         let bot = this.bot;
+        if(text.checking(text.nick).indexOf("who"))return;
         let who1 = ["Зеленый","Мудрый","Вкусный","Приятный","Злой","Добрый","Старый","Молодой","Гендерфлюидный"]
             let who2 = ["Пацанчик","Эльф","Бутерброд","Хрен","Симпл димпл","Кролик","Инопланетянин","Мадам","Вертосексуал"]
             
-            let text = message
             let str = require("fs").readFileSync("qa.txt", 'utf8').split("\n")
             
             
@@ -29,7 +29,6 @@ class Loader {
             }
 
             if(text.text.split(" ")[0].toLowerCase() === "спрашивай") {
-                if(!message.checking(text.nick)) return;
                 let rand = Math.floor(Math.random()*(str.length-1));
                 console.log(rand)
                 let rawtext = str[rand].split(":");
@@ -53,23 +52,7 @@ class Loader {
             }
             if(text.text.split(" ")[0].toLowerCase() === "инфа") {
                bot.chat(this.g + "Где то " + Math.floor(Math.random()*100) + "%")
-            }
-            if(text.text.toLowerCase() === "подбирайка"){
-                setTimeout(() => {
-                  prepare("filled_map",bot,this.Item)
-                },10)
-            }
-            async function prepare(blockName,bot,Item) {
-                let mcData = require('minecraft-data')(bot.version);
-                
-                let item = new Item(mcData.itemsByName[blockName].id,2,3);
-                console.log(item.metadata)
-                await bot.creative.setInventorySlot(35, item,console.log);
-                
-                await bot.toss(mcData.itemsByName[blockName].id, null, 1)
-        }
-
-            
+            }          
 
     }
 

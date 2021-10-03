@@ -7,16 +7,16 @@ class Loader {
         this.bot = bot;
         console.log("math core enabled");
     }
-    toNick(message){
+    toNick(text){
         let bot = this.bot  
-        
-        if(message.text.split(" ")[0].trim().toLowerCase() === "решай"){
+        if(text.checking(text.nick).indexOf("math"))return;
+        if(text.text.split(" ")[0].trim().toLowerCase() === "решай"){
             this.g = "";
-             if(message.global) this.g = "!"
-             else if(message.m) this.g = "/er "
+             if(text.global) this.g = "!"
+             else if(text.m) this.g = "/er "
              try{
-              bot.chat(this.g + this.Parser.evaluate(message.text.split(" ")[1].trim()))
-              console.log(this.Parser.evaluate(message.text.split(" ")[1].trim()))
+              bot.chat(this.g + this.Parser.evaluate(text.text.split(" ")[1].trim()))
+              console.log(this.Parser.evaluate(text.text.split(" ")[1].trim()))
              }catch(e){
               bot.chat(this.g + "Ошибка при решении!")
              }

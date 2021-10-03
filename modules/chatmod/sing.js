@@ -1,18 +1,15 @@
 class Loader {
     bot = null
     bool = false;
-    echo = false;
     g;
-    answer;
     constructor(bot) {
         this.bot = bot;
         console.log("sign core enabled");
     }
-    toNick(message){
+    toNick(text){
         let bot= this.bot;
-
-            let text = message
-            
+        if(text.checking(text.nick).indexOf("sing"))return;
+              
             let g = ""
             if(text.global) g = "!"
             if(text.text === "Спой")

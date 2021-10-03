@@ -8,39 +8,39 @@ class Loader {
         this.bot = bot;
         console.log("pov core enabled");
     }
-    toNick(message){
+    toNick(text){
      let bot = this.bot;
+     if(text.checking(text.nick).indexOf("pov"))return;
      this.g = "";
-        if(message.global) this.g = "!"
-        else if(message.m) this.g = "/er "
-        if(message.text.split(" ")[0].trim().toLowerCase() === "повторяй"){
-           if(message.text.split(" ")[1] === null) return;
-           this.nick = message.text.split(" ")[1].trim(); 
+        if(text.global) this.g = "!"
+        else if(text.m) this.g = "/er "
+        if(text.text.split(" ")[0].trim().toLowerCase() === "повторяй"){
+           if(text.text.split(" ")[1] === null) return;
+           this.nick = text.text.split(" ")[1].trim(); 
            this.echo = true;
         }
 
         
-        if(message.text.toLowerCase() === "выйди")
+        if(text.text.toLowerCase() === "выйди")
             bot.quit();
 }
-    toMess(message){
+    toMess(text){
         let bot = this.bot;
         this.g = "";
-        if(message.global) this.g = "!"
-        else if(message.m) this.g = "/er "
-        if(this.echo && message.nick.trim() === this.nick){
-            bot.chat(this.g + message.orig)
+        if(text.global) this.g = "!"
+        else if(text.m) this.g = "/er "
+        if(this.echo && text.nick.trim() === this.nick){
+            bot.chat(this.g + text.orig)
         }
-        if(message.text.split(" ")[0].toLowerCase() === "ищу" || message.text.split(" ")[0].toLowerCase() === "ищю") {
-            bot.chat(this.g + "Але тебе никто не даст! перестань искать а?")
+        if(text.text.split(" ")[0].toLowerCase() === "ищу" || text.text.split(" ")[0].toLowerCase() === "ищю") {
+            bot.chat(this.g + "А мог бы лично к кому то подкатить,а не так вот!")
          }
 
-         let mats = ["блять","гандон","сука","пидр","пидор","хуй","пизд","хуе","бля","пид","конч","еба","ебл","сучк","отье","отъе","долбо"]
+         let mats = ["блять","гандон","сука","пидр","пидор","хуй","пизд","хуе","бля","пид","конч","еба","ебл","сучк","отье","отъе","долбо","даун","ебу"]
         var a = new RegExp(mats.join('|'), 'gi');
          
-        if(message.text.match(a)){
-            bot.chat(this.g + "Маты это плохо! " + message.nick)
-        }
+        if(text.text.match(a))
+            bot.chat(this.g + "Маты это плохо! " + text.nick) 
 }
 
     toOther(text){
