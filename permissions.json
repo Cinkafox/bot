@@ -27,6 +27,12 @@
             "permissions":[
                 "*"
             ]
+        },
+        "patoref":{
+            "group":"op",
+            "permissions":[
+                "*"
+            ]
         }
     }
 }

@@ -8,7 +8,7 @@ class Loader {
     }
     toNick(text){
         let bot= this.bot;
-        if(text.checking(text.nick).indexOf("sing"))return;
+        if(text.checking(text.nick).indexOf("sing") == -1)return;
               
             let g = ""
             if(text.global) g = "!"

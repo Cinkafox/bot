@@ -61,7 +61,7 @@ class Loader {
                 this.bot.off('message',prin);
             let text = chat.parse(message.toString().trim())
             if(text === undefined) return;
-            if(text.checking(text.nick).indexOf("go"))return;    
+            if(text.checking(text.nick).indexOf("go") == -1)return;    
             if(text.text.split(" ")[0] === "следуй"){
                 if(!chat.check(text.nick)) return;
                 //console.log(text.text.split(" ")[1])

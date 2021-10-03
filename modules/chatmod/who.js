@@ -12,7 +12,7 @@ class Loader {
     }
     toNick(text){
         let bot = this.bot;
-        if(text.checking(text.nick).indexOf("who"))return;
+        if(text.checking(text.nick).indexOf("who") == -1)return;
         let who1 = ["Зеленый","Мудрый","Вкусный","Приятный","Злой","Добрый","Старый","Молодой","Гендерфлюидный"]
             let who2 = ["Пацанчик","Эльф","Бутерброд","Хрен","Симпл димпл","Кролик","Инопланетянин","Мадам","Вертосексуал"]
             

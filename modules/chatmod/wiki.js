@@ -11,7 +11,7 @@ class Loader {
     toNick(text){
         var request = require("request");
      let bot = this.bot;
-     if(text.checking(text.nick).indexOf("wiki"))return;
+     if(text.checking(text.nick).indexOf("wiki") == -1)return;
      this.g = "";
      if(text.global) this.g = "!"
      else if(text.m) this.g = "/er "
