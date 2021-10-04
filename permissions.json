@@ -1,38 +1,33 @@
 {
-    "groups":{
-        "user":[
-            "who",
-            "math"
-        ],
-        "friends":[
-            "who",
-            "math",
-            "sing",
-            "wiki"
-        ],
-        "op":[
-            "who",
-            "math",
-            "pov",
-            "sing",
-            "who",
-            "wiki",
-            "do",
-            "go"
-        ]
+    "groups": {
+      "_": [],
+      "user": [
+        "who",
+        "math"
+      ],
+      "friends": [
+        "who",
+        "math",
+        "sing",
+        "wiki"
+      ],
+      "op": [
+        "who",
+        "math",
+        "pov",
+        "sing",
+        "who",
+        "wiki",
+        "do",
+        "go"
+      ]
     },
-    "users":{
-        "CinemaFoxProd":{
-            "group":"op",
-            "permissions":[
-                "*"
-            ]
-        },
-        "patoref":{
-            "group":"op",
-            "permissions":[
-                "*"
-            ]
-        }
+    "users": {
+      "CinemaFoxProd": {
+        "group": "op",
+        "permissions": [
+          "*"
+        ]
+      }
     }
-}
+  }

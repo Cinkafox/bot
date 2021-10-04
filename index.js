@@ -77,7 +77,7 @@ let bott = class {
                 bot.setControlState('forward', false);
                 this.main()
             },10000);
-        },100);
+        },500);
         },10000)
     }
 
@@ -93,18 +93,18 @@ let bott = class {
 
         this.bot.on('message', (message) => {
                let fs = require("fs")
-               //console.log(message.toString())
+               console.log(message.toString())
                let text = chat.parse(message.toString())
                if(text === undefined) return;
                console.log(name + "|" + text.text + "|" + text.nick + "|")
-               if(text.text === "Релоад модули" && text.nick === "CinemaFoxProd") {
+               if(text.text === "Релоад модули" && (text.checking(text.nick).indexOf("*") != -1)){
                    this.moduleload()
                    bot.chat("/m CinemaFoxProd Готово")
                }
-               if(text.text.split(":")[0] === "создай" && text.nick === "CinemaFoxProd"){
+               if(text.text.split(":")[0] === "создай" && (text.checking(text.nick).indexOf("*") != -1)){
                    new bott(text.text.split(":")[1],text.text.split(":")[2])
                }
-               if(text.text.split(":")[0] === "Добавь" && text.nick === "CinemaFoxProd"){
+               if(text.text.split(":")[0] === "Добавь" && (text.checking(text.nick).indexOf("*") != -1)){
                 fs.appendFileSync("wl.txt","\n" + text.text.split(":")[1])
             }
             
@@ -140,4 +140,4 @@ let bott = class {
     }
 
 }
-    let bottt = new bott("Nick","/l 12341")
+    let bottt = new bott("nick","/l 12341")

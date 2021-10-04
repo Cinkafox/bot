@@ -1,15 +1,16 @@
 class permissions{
 fs = require('fs');
-obj = JSON.parse(this.fs.readFileSync('permissions.json', 'utf8'));
 
 groupcheck(checked){
-    if(this.obj.groups[checked] !== undefined)
-        return this.obj.groups[checked]
+    let obj = JSON.parse(this.fs.readFileSync('permissions.json', 'utf8'));
+    if(obj.groups[checked] !== undefined)
+        return obj.groups[checked]
     return []
 }
 nickcheck(checked){
+    let obj = JSON.parse(this.fs.readFileSync('permissions.json', 'utf8'));
     let ret = []
-    let user = this.obj.users[checked];
+    let user = obj.users[checked];
     if(user !== undefined) {
         ret.push(...this.groupcheck(user.group))
         ret.push(...user.permissions)
@@ -20,16 +21,22 @@ nickcheck(checked){
 }
 
 adduser(user,group,permissions){
-    this. obj.users[user] = {
+    let obj = JSON.parse(this.fs.readFileSync('permissions.json', 'utf8'));
+    obj.users[user] = {
         group:group,
         permissions:permissions
     }
-    this.fs.writeFile('permissions.json', JSON.stringify(this.obj), 'utf8', console.log);
+    setTimeout(() => {
+        this.fs.writeFile('permissions.json', JSON.stringify(obj), 'utf8', console.log);
+    },1000)
 }
 
 addgroup(group,permissions){
-    this.obj.groups[group] = permissions;
-    this.fs.writeFile('permissions.json', JSON.stringify(this.obj), 'utf8', console.log);
+    let obj = JSON.parse(this.fs.readFileSync('permissions.json', 'utf8'));
+    obj.groups[group] = permissions;
+    setTimeout(() => {
+    this.fs.writeFile('permissions.json', JSON.stringify(obj), 'utf8', console.log);
+   },1000)
 }
 }
 module.exports = permissions;

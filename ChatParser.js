@@ -1,11 +1,15 @@
 class ChatParser{
     bypass = false;
+    perm;
+    constructor(){
+        let Perm = require("./permissions");
+        this.perm = new Perm();
+    }
     check(Nick){
-            let Perm = require("./permissions");
-            let perm = new Perm();
-            return perm.nickcheck(Nick)
+            return this.perm.nickcheck(Nick)
     }
     parse(message){
+        let perm = this.perm;
         let bypassfun = (timeout) => {
             this.bypass = true;
             setTimeout(() =>{this.bypass = false},Number(timeout))
@@ -24,14 +28,14 @@ class ChatParser{
             mess = array[1];
             if (array[0].split('❤').join("").trim().split(" ")[0].trim() === "«Ⓖ»")
                 global = true;
-            return {text: mess.trim(), nick: nick.trim(), global: global,m:false,function:bypassfun,checking:this.check}
+            return {text: mess.trim(), nick: nick.trim(), global: global,m:false,function:bypassfun,checking:this.check,perm:this.perm}
         }else if(message.split("")[0].trim() === '['){
             
             array = message.trim().split(" -> я] ");
             nick = array[0].split(" ")[1]
             mess = array[1];
 
-            return {text: mess.trim(), nick: nick.trim(), global: false,m:true,function:bypassfun,checking:this.check}
+            return {text: mess.trim(), nick: nick.trim(), global: false,m:true,function:bypassfun,checking:this.check,perm:this.perm}
         }
         }catch (e){
             return;
