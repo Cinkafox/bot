@@ -28,6 +28,12 @@
         "permissions": [
           "*"
         ]
+      },
+      "assassin1234": {
+        "group": "_",
+        "permissions": [
+          "_"
+        ]
       }
     }
   }

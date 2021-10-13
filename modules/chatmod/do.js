@@ -3,9 +3,22 @@ class Loader {
     bool = false;
     echo = false;
     nick;
+    schematic = null;
     constructor(bot) {
         this.bot = bot;
         console.log("Doing core enabled");
+        async function b(){
+            let fs = require('fs').promises
+            let {Schematic} = require('prismarine-schematic');
+            let schematic = await Schematic.read(
+                await fs.readFile('17043.schem')
+                );  
+                schematic.forEach((block,pos) => {
+                   //console.log(pos);
+                })    
+            return schematic;    
+        }
+        this.schematic = b()
     }
     toNick(text){
         let bot = this.bot;
@@ -19,6 +32,20 @@ class Loader {
 
     }
 
+    async function give(blockName) {
+        let equipBlock = bot.inventory.findInventoryItem(blockName);
+        if (!equipBlock) {
+            bot.chat("Нема извиняй!")
+        }
+        //await bot.equip(equipBlock, 'hand');
+        await bot.toss(mcData.itemsByName[blockName].id, null, 1,console.log)
+
+    }
+    if(text.text.trim() === "Check") {
+        console.log(this.schematic)
+        
+    
+    }
 }
     toMess(text){
        

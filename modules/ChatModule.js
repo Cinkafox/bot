@@ -64,6 +64,7 @@ class Loader {
         }
         require("fs").readdirSync(this.normalizedPath).forEach(function(file) {
             try {
+                if(file.split(".")[1] !== "js") return;
                 nocache("./chatmod/" + file);
                 let Loader = require("./chatmod/" + file);
                 pp.push(new Loader(bot));

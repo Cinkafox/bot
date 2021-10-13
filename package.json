@@ -15,6 +15,7 @@
     "mineflayer": "^3.11.0",
     "prismarine-item": "^1.10.1",
     "prismarine-nbt": "^1.6.0",
+    "prismarine-schematic": "^1.2.1",
     "socks": "^2.6.1",
     "socks5-client": "^1.2.8",
     "vec3": "^0.1.7"

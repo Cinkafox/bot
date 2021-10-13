@@ -8,10 +8,13 @@ const {Vec3} = require("vec3");
 
 let normalizedPath = require('path').join(__dirname, "modules");
 
+let bots = [];
+
 let bott = class {
     bot;
     name;
     deist;
+    log;
     modulesmy = [];
     //enableproxy если true то будет использованна прокси
     enableproxy = false;
@@ -56,13 +59,18 @@ let bott = class {
            console.log(message)
            if(message === '{"text":"Вы были кикнуты за нахождение более 6 минут в AFK."}')
           {
+            
+          }
+        })
+        this.bot.on('error', console.log)
+        this.bot.on('end',() => {
             for (let i = 0;i<this.modulesmy.length;i++){
                 this.modulesmy[i].end();
                 delete this.modulesmy[i].instance
             }
-          }
+            console.log(bots.indexOf(this));
+            bots.splice(bots.indexOf(this));
         })
-        this.bot.on('error', console.log)
         this.init()
     }
 
@@ -90,27 +98,29 @@ let bott = class {
         console.log("Я тута!")
         //mineflayerViewer(bot, { port: 8080, firstPerson: true })
         //в чем плюс 28 летних девушек? их 20!
-
-        this.bot.on('message', (message) => {
-               let fs = require("fs")
-               console.log(message.toString())
-               let text = chat.parse(message.toString())
-               if(text === undefined) return;
-               console.log(name + "|" + text.text + "|" + text.nick + "|")
-               if(text.text === "Релоад модули" && (text.checking(text.nick).indexOf("*") != -1)){
-                   this.moduleload()
-                   bot.chat("/m CinemaFoxProd Готово")
-               }
-               if(text.text.split(":")[0] === "создай" && (text.checking(text.nick).indexOf("*") != -1)){
-                   new bott(text.text.split(":")[1],text.text.split(":")[2])
-               }
-               if(text.text.split(":")[0] === "Добавь" && (text.checking(text.nick).indexOf("*") != -1)){
-                fs.appendFileSync("wl.txt","\n" + text.text.split(":")[1])
+         
+        let fun = (message) => {
+            let fs = require("fs")
+            this.log = this.log + message.toString() + " {sl}";
+            let text = chat.parse(message.toString())
+            if(text === undefined) return;
+            console.log(name + "|" + text.text + "|" + text.nick + "|")
+            if(text.text === "Релоад модули" && (text.checking(text.nick).indexOf("*") != -1)){
+                this.moduleload()
+                bot.chat("/m CinemaFoxProd Готово")
             }
-            
+            if(text.text.split(":")[0] === "создай" && (text.checking(text.nick).indexOf("*") != -1)){
+                bots.push(new bott(text.text.split(":")[1],text.text.split(":")[2]))
+            }
+            if(text.text.split(":")[0] === "Добавь" && (text.checking(text.nick).indexOf("*") != -1)){
+             fs.appendFileSync("wl.txt","\n" + text.text.split(":")[1])
+         }
+         
 
 
-        });
+     }
+        this.bot.on('message', fun);
+
 
 
     }
@@ -139,5 +149,123 @@ let bott = class {
         this.modulesmy = pp;
     }
 
+    getbot(){
+        return this.bot;
+    }
 }
-    let bottt = new bott("nick","/l 12341")
+
+const http = require("http");
+const fs = require("fs");
+//let bottt = new bott("Nick","/l 12341")
+
+const host = {
+    host:'localhost',
+    port:8080
+}
+
+let type = {
+    html:"text/html",
+    css:"text/css",
+    js:"text/js",
+    png:"image/png"
+}
+
+let primer = fs.readFileSync("./http/onebot.html").toString();
+
+const requestListener = function (req, res) {
+    try{
+        let data;
+    switch(req.url.trim().toLowerCase().split("/")[1]){
+        case "":
+            data = fs.readFileSync('./http/index.html');
+            let biba;
+            bots.forEach(element => {
+                if(biba != undefined){
+                biba = biba + primer.split("{bot}").join(element.name) + "\n";
+                }else{
+                    biba = primer.split("{bot}").join(element.name) + "\n";
+                }
+            });
+            let test = data.toString().split("{begining}").join(biba);
+            res.setHeader("Content-Type", type["html"]);
+            res.writeHead(200);
+            res.end(test);
+            break;
+        case "bot":
+            let bot;
+            let index = req.url.trim().toLowerCase().split("/")[2];
+            bots.forEach(element => {
+                if(element.name.toLowerCase() === index){
+                    bot = element
+                }
+            })
+            if(bot == undefined){
+                res.writeHead(404);
+                res.end("Нема такого бота");
+                return;
+            }
+            let log;
+            if(bot.log == undefined){
+                res.setHeader("Content-Type", type["html"]);
+                res.writeHead(404);
+                res.end("");
+                return
+            }
+            bot.log.split("{sl}").forEach(element => {
+                log = log + "<h3>" + element + "</h3> \n"
+            });
+
+            if(req.url.trim().toLowerCase().split("/")[3] === "raw"){
+                res.setHeader("Content-Type", type["html"]);
+                 res.writeHead(200);
+                res.end(log);
+                return;
+            }
+            data = fs.readFileSync('./http/console.html').toString().split("{log}").join(log);
+            
+            res.setHeader("Content-Type", type["html"]);
+            res.writeHead(200);
+            res.end(data);
+            break;
+        case "create":
+            if(req.method == 'GET'){
+            data = fs.readFileSync('./http/botcreate.html');
+            
+            res.setHeader("Content-Type", type["html"]);
+            res.writeHead(200);
+            res.end(data);
+            }else{
+                let body = '';
+                req.on('data', chunk => {
+                   body += chunk.toString();
+                 });
+                req.on('end', () => {
+                    console.log(body);
+                    let params = {
+                        nick:body.split("&")[0].split("=")[1],
+                        do:body.split("&")[1].split("=")[1]
+                    };
+                    console.log(params.nick + "|" + params.do.split("+").join(" "));
+                    bots.push(new bott(params.nick,"/" + params.do.split("+").join(" ")))
+                    res.end('ok');
+                });
+            }
+            break;
+        default:        
+            data = fs.readFileSync('./http' + req.url);
+            res.setHeader("Content-Type", type[req.url.split(".")[req.url.split(".").length -1]]);
+            res.writeHead(200);
+            res.end(data);
+            break;
+    }
+    }catch(e){
+        res.writeHead(404);
+        res.end("Pizdec");
+        console.log("|" + req.url.trim().toLowerCase() + "|" + e)
+    }
+};
+
+const server = http.createServer(requestListener);
+server.listen(host.port, host.host, () => {
+    console.log(`Server is running on http://${host.host}:${host.port}`);
+});
