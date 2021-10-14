@@ -201,17 +201,20 @@ const requestListener = function (req, res) {
             })
             if(bot == undefined){
                 res.writeHead(404);
-                res.end("Нема такого бота");
+                res.end("Not found bot!");
                 return;
             }
             let log;
             if(bot.log == undefined){
                 res.setHeader("Content-Type", type["html"]);
                 res.writeHead(404);
-                res.end("");
+                res.end("Не готово пока");
                 return
             }
             bot.log.split("{sl}").forEach(element => {
+                if(log == undefined)
+                log = "<h3>" + element + "</h3> \n"
+                else
                 log = log + "<h3>" + element + "</h3> \n"
             });
 
@@ -221,11 +224,43 @@ const requestListener = function (req, res) {
                 res.end(log);
                 return;
             }
-            data = fs.readFileSync('./http/console.html').toString().split("{log}").join(log);
+            data = fs.readFileSync('./http/console.html').toString().split("{log}").join(log).split("{botname}").join(bot.name);
             
             res.setHeader("Content-Type", type["html"]);
             res.writeHead(200);
             res.end(data);
+            break;
+        case "command":
+            let boti;
+            let indexi = req.url.trim().toLowerCase().split("/")[2];
+            bots.forEach(element => {
+                if(element.name.toLowerCase() === indexi){
+                    boti = element
+                }
+            })
+            if(boti == undefined){
+                res.writeHead(404);
+                res.end("Not found bot!");
+                return;
+            }
+            if(req.method == 'GET'){
+            res.setHeader("Content-Type", type["html"]);
+            res.writeHead(200);
+            res.end("Тебе сюды не надо!");
+            }else{
+                let body = '';
+                req.on('data', chunk => {
+                   body += chunk.toString();
+                 });
+                req.on('end', () => {
+                    console.log(body);
+                    let params = {
+                        command:body.split("&")[0].split("=")[1],
+                    };
+                    boti.bot.chat(decodeURIComponent(params.command).split("+").join(" "));
+                    res.end('ok');
+                });
+            }
             break;
         case "create":
             if(req.method == 'GET'){

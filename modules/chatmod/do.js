@@ -22,7 +22,6 @@ class Loader {
     }
     toNick(text){
         let bot = this.bot;
-     console.log(text.checking(text.nick).indexOf("do"))
      if(text.checking(text.nick).indexOf("do") == -1)return;
     if(text.text.split(":")[0] === "Напиши" && text.nick !== "->") {
         bot.chat(text.text.split(":")[1])
