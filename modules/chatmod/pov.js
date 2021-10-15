@@ -10,7 +10,7 @@ class Loader {
     }
     toNick(text){
      let bot = this.bot;
-     if(text.checking(text.nick).indexOf("pov") == -1)return;
+     if(text.checking(text.nick,bot.entity.username).indexOf("pov") == -1)return;
      this.g = "";
         if(text.global) this.g = "!"
         else if(text.m) this.g = "/er "

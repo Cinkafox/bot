@@ -40,7 +40,7 @@ class Loader {
             if(text.text.trim().split(" ")[0].trim() !== bot.entity.username && !text.m && text.text.trim().split(" ")[0].trim().toLowerCase() !== "все") return; 
                 text.text = text.text.split(bot.entity.username).join("").trim()
             //if(text.nick.trim() === "SUKA" || text.nick.trim() === "assassin1234") return;
-            //тоже самое но с упониманием ника бота
+            //тоже самое но с упониманием ника бота и ваще ассасин лох
             setTimeout(() => {
                 for(let i = 0;i<this.modulesmy.length;i++){
                     this.modulesmy[i].toNick(text)

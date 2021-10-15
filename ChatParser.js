@@ -5,8 +5,8 @@ class ChatParser{
         let Perm = require("./permissions");
         this.perm = new Perm();
     }
-    check(Nick){
-            return this.perm.nickcheck(Nick)
+    check(Nick,botnick){
+            return this.perm.nickcheck(Nick,botnick)
     }
     parse(message){
         let perm = this.perm;

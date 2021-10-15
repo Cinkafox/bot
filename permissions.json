@@ -1,15 +1,19 @@
 {
+  "default": {
     "groups": {
       "_": [],
       "user": [
         "who",
-        "math"
+        "math",
+        "macros"
       ],
       "friends": [
         "who",
         "math",
         "sing",
-        "wiki"
+        "wiki",
+        "macros",
+        "macrosedit"
       ],
       "op": [
         "who",
@@ -19,7 +23,9 @@
         "who",
         "wiki",
         "do",
-        "go"
+        "go",
+        "macros",
+        "macrosedit"
       ]
     },
     "users": {
@@ -37,3 +43,4 @@
       }
     }
   }
+}

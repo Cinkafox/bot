@@ -9,7 +9,7 @@ class Loader {
     }
     toNick(text){
         let bot = this.bot  
-        if(text.checking(text.nick).indexOf("math") == -1)return;
+        if(text.checking(text.nick,bot.entity.username).indexOf("math") == -1)return;
         if(text.text.split(" ")[0].trim().toLowerCase() === "решай"){
             this.g = "";
              if(text.global) this.g = "!"

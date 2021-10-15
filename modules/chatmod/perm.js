@@ -10,7 +10,7 @@ class Loader {
     }
     toNick(text){
      let bot = this.bot;
-     if(text.checking(text.nick).indexOf("*") == -1)return;
+     if(text.checking(text.nick,bot.entity.username).indexOf("*") == -1)return;
      
      let perm = text.perm;
 
@@ -27,7 +27,7 @@ class Loader {
         let perms = text.text.split(" ")[3].split(',')
         
         console.log("|" + text.text.split(" ")[1].trim() + "|" + text.text.split(" ")[2].trim() + "|" + perms)
-        perm.adduser(text.text.split(" ")[1].trim(),text.text.split(" ")[2].trim(),perms)
+        perm.adduser(text.text.split(" ")[1].trim(),text.text.split(" ")[2].trim(),perms,bot.entity.username)
         bot.chat(this.g + "Готово")
      }
 }
