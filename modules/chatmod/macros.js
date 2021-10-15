@@ -15,7 +15,7 @@ class Loader {
      let obj = JSON.parse(this.fs.readFileSync('macros.json', 'utf8'));
      let botobj = obj[bot.entity.username];
      if(text.checking(text.nick,bot.entity.username).indexOf("macros") == -1)return;
-     if(botobj[str] != undefined){
+     if(botobj !=undefined && botobj[str] != undefined){
         bot.chat(botobj[str]);
      }
 
