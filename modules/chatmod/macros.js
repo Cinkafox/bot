@@ -16,7 +16,7 @@ class Loader {
      if(obj[bot.entity.username] == undefined) obj[bot.entity.username] = {};
      let botobj = obj[bot.entity.username];
      if(text.checking(text.nick,bot.entity.username).indexOf("macros") == -1)return;
-     if(botobj[str] != undefined){
+     if(botobj !=undefined && botobj[str] != undefined){
         bot.chat(botobj[str]);
      }
 
