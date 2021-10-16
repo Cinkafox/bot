@@ -13,6 +13,7 @@ class Loader {
      let bot = this.bot;
      let str = text.text.toLowerCase().trim();
      let obj = JSON.parse(this.fs.readFileSync('macros.json', 'utf8'));
+     if(obj[bot.entity.username] == undefined) obj[bot.entity.username] = {};
      let botobj = obj[bot.entity.username];
      if(text.checking(text.nick,bot.entity.username).indexOf("macros") == -1)return;
      if(botobj[str] != undefined){

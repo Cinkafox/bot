@@ -156,7 +156,7 @@ let bott = class {
 
 const http = require("http");
 const fs = require("fs");
-//let bottt = new bott("Nick","/l 12341")
+bots.push(new bott("Leofox","/l 12341"))
 
 const host = {
     host:'localhost',
