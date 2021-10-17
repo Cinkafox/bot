@@ -30,7 +30,7 @@ class Loader {
         if(text.global) this.g = "!"
         else if(text.m) this.g = "/er "
         if(this.echo && text.nick.trim() === this.nick){
-            bot.chat(this.g + text.orig)
+            bot.chat(this.g + text.text)
         }
         if(text.text.split(" ")[0].toLowerCase() === "ищу" || text.text.split(" ")[0].toLowerCase() === "ищю") {
             bot.chat(this.g + "А мог бы лично к кому то подкатить,а не так вот!")
