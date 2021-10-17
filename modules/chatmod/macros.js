@@ -16,8 +16,13 @@ class Loader {
      if(obj[bot.entity.username] == undefined) obj[bot.entity.username] = {};
      let botobj = obj[bot.entity.username];
      if(text.checking(text.nick,bot.entity.username).indexOf("macros") == -1)return;
+     
+     let replace = (texta) => {
+        return texta.split("{nick}").join(text.nick).split("{bot}").join(bot.entity.username)
+     }
+    
      if(botobj !=undefined && botobj[str] != undefined){
-        bot.chat(botobj[str]);
+        bot.chat(replace(botobj[str]));
      }
 
      if(text.checking(text.nick,bot.entity.username).indexOf("macrosedit") == -1)return;

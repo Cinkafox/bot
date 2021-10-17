@@ -208,7 +208,7 @@ const requestListener = function (req, res) {
             if(bot.log == undefined){
                 res.setHeader("Content-Type", type["html"]);
                 res.writeHead(404);
-                res.end("Не готово пока");
+                res.end("Please wait");
                 return
             }
             bot.log.split("{sl}").forEach(element => {
@@ -257,6 +257,10 @@ const requestListener = function (req, res) {
                     let params = {
                         command:body.split("&")[0].split("=")[1],
                     };
+                    if(decodeURIComponent(params.command).split("+").join(" ").trim() === "/выйди"){
+                        boti.bot.quit()
+                        return;
+                    }
                     boti.bot.chat(decodeURIComponent(params.command).split("+").join(" "));
                     res.end('ok');
                 });

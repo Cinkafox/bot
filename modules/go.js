@@ -17,6 +17,7 @@ class Loader {
 
         let ChatParser = require('../ChatParser');
         let chat = new ChatParser();
+        let posu = bot.entity.position;
 
         let i =0;
         let names = ["Leofox"];
@@ -46,14 +47,30 @@ class Loader {
             i++
             else
             i=0;
-
-           if(nick == null || nick.entity == null)  bool = false;
+            //slezhka
+           //if(nick == null || nick.entity == null)  bool = false;
+           
            if(!bool) {
             bot.setControlState('forward',false);
             bot.setControlState('jump', false);
                return;
            }
-           bot.lookAt(nick.entity.position.offset(0,1,0))
+           let pos;
+           if(nick == null)
+           pos = posu;
+           else{
+           if(nick.entity == null){bool = false; return}
+           pos = nick.entity.position.offset(0,1,0);
+           }
+           if((pos.x-bot.entity.position.x) > -2 && (pos.x-bot.entity.position.x) < 2 && (pos.z-bot.entity.position.z) > -2 && (pos.z-bot.entity.position.z) < 2) {
+            bot.setControlState('forward',false);
+            bot.setControlState('jump', false);
+           }else if(bool){
+            bot.setControlState('forward',true);
+            bot.setControlState('jump', true);
+           }
+           
+           bot.lookAt(pos)
         }
 
         let prin = (message) => {
@@ -63,18 +80,28 @@ class Loader {
             if(text === undefined) return;
             if(text.checking(text.nick,bot.entity.username).indexOf("go") == -1)return;    
             if(text.text.split(" ")[0] === "следуй"){
-                if(!chat.check(text.nick)) return;
-                //console.log(text.text.split(" ")[1])
+                if(text.text.split(" ").length == 4){
+                    console.log(text.text.split(" ")[1] + " " + text.text.split(" ")[2] + " " + text.text.split(" ")[3])
+                    try{
+                        posu = posu.offset(Number(text.text.split(" ")[1]),Number(text.text.split(" ")[2]),Number(text.text.split(" ")[3]))
+                        bool = true
+                    }catch{
+                        bot.chat("Цифры надо!")
+                    }
+                }
+                if(text.text.split(" ").length == 2){
                 nick = bot.players[text.text.split(" ")[1]]
                 if(nick == undefined) return;
                 bool = true
                 console.log(nick.entity.position)
                 bot.setControlState('forward',true);
                 bot.setControlState('jump', true);
+                }
             }
             
             else if(text.text === "стой"){
                 bool = false;
+                nick = null;
             }
 
             else if(text.text.toLowerCase() === "сигналка")
@@ -85,9 +112,7 @@ class Loader {
                 bot.physics.gravity = Number(text.text.split(" ")[1].trim())
             }
             
-            else if(text.text.split(" ")[0] === "следи"){
-                if(!chat.check(text.nick)) return;
-                console.log(text.text.split(" ")[1])
+            else if(text.text.split(" ")[0] === "следи"){    
                 nick = bot.players[text.text.split(" ")[1]]
                 if(nick == undefined) return;
                 bool = true
