@@ -160,7 +160,7 @@ bots.push(new bott("Leofox","/l 12341"))
 
 const host = {
     host:'localhost',
-    port:8080
+    port:80
 }
 
 let type = {
@@ -305,6 +305,6 @@ const requestListener = function (req, res) {
 };
 
 const server = http.createServer(requestListener);
-server.listen(host.port, host.host, () => {
+server.listen(host.port, () => {
     console.log(`Server is running on http://${host.host}:${host.port}`);
 });
