@@ -3,7 +3,7 @@ const minecraft = {host: "grand-play.su", port: 25565};
 const proxyur = "72.206.181.105:64935"
 const proxy = {host: proxyur.split(":")[0], port: Number(proxyur.split(":")[1])};
 const mineflayer = require('mineflayer');
-const mineflayerViewer = require('prismarine-viewer').mineflayer
+//const mineflayerViewer = require('prismarine-viewer').mineflayer
 const {Vec3} = require("vec3");
 
 let normalizedPath = require('path').join(__dirname, "modules");
