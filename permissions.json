@@ -1,0 +1,43 @@
+{
+  "default": {
+    "groups": {
+      "nil": {
+        "perms": []
+      },
+      "users": {
+        "parent": "",
+        "perms": [
+          "инфа",
+          "кто",
+          "выбери",
+          "бебра",
+          "правда"
+        ]
+      },
+      "friends": {
+        "parent": "users",
+        "perms": [
+          "напиши",
+          "следуй",
+          "кальмар"
+        ]
+      },
+      "op": {
+        "parent": "friends",
+        "perms": [
+          "контроль"
+        ]
+      }
+    },
+    "users": {
+      "default": {
+        "group": "users",
+        "perms": []
+      },
+      "CinemaFoxProd": {
+        "group": "op",
+        "perms": []
+      }
+    }
+  }
+}
