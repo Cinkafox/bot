@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -19,6 +20,10 @@
     <h1>Создание бота!</h1>
     <input type="text" name="command" id="input">
     <button id="ok" onclick="enter()">Ввод</button>
+    <h1>Список модулей</h1>
+    <div id="botsec">
+        {list}
+    </div>
 </main>
 <style type="text/css">
   #silka{
@@ -66,12 +71,13 @@
     let posting = async (data) => {
         try {
             const response = await fetch(url, {
-                method: 'POST', // или 'PUT'
+                method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
+            window.location.reload(true);
             return await response.json();
         } catch (error) {
             console.error('Ошибка:', error);
@@ -82,7 +88,7 @@
 
         posting({newbot:document.getElementById('input').value})
         document.getElementById("input").value = ""
-        document.getElementById("textfield").innerText = document.getElementById("textfield").innerText + "s"
+
     }
     let txtfield = document.getElementById("input");
     txtfield.addEventListener('keydown',(e)=>{

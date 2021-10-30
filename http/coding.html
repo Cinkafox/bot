@@ -1,11 +1,12 @@
-<html>
+<!DOCTYPE html>
+<html lang="ru">
 <head>
 <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
-  <link href="main.css" rel="stylesheet">
-  <title>Кодинг</title>
+  <link href="/main.css" rel="stylesheet">
+  <title>{name}</title>
 </head>
 <body>
 <header>
@@ -14,12 +15,33 @@
 <main>
     <div id='dd'>
     <div id='cheeee'>0</div>
-    <form action="savecode" method="post">
-      <textarea name="code" rows=35 id="text" style="resize: none;"></textarea>
-      <input type="submit" id="ok" value="Сохранить">
-  </form>
+      <textarea name="code" rows=35 id="text" style="resize: none;">{code}</textarea>
+      <input type="submit" id="ok" onclick="post()" value="Сохранить">
   </div>
-  <script src="index.js">
+  <script src="/index.js">
+  </script>
+  <script>
+    const url = window.url;
+    let posting = async (data) => {
+      try {
+        const response = await fetch(url, {
+          method: 'POST', // или 'PUT'
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        window.location.href = "/";
+        return await response.json();
+      } catch (error) {
+        console.error('Ошибка:', error);
+        return;
+      }
+    }
+
+    let post = () => {
+      posting({saving:document.getElementById("text").value,savename:document.title});
+    }
   </script>
   <style type="text/css">
     body{
@@ -46,6 +68,10 @@
       padding: 1%;
       font-size: 23px;
       border-radius: 5px;
+    }
+    #ok:hover{
+      background-color: #222;
+      color: #fff;
     }
     #text{
       position: absolute;

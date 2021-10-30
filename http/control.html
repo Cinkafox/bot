@@ -1,11 +1,12 @@
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
-  <link href="main.css" rel="stylesheet">
-  <title>Консоль</title>
+  <link href="/main.css" rel="stylesheet">
+  <title>{Botname}</title>
 </head>
 <body>
 <header>
@@ -24,6 +25,7 @@
     background-color: #555555;
     font-size: 25px;
     height: 70%;
+      overflow-y:auto;
   }
   #input{
     margin: 10px;
@@ -49,15 +51,31 @@
   }
 </style>
 <script type="text/javascript">
-const url = window.url;
-let posting = async (data) => {
-try {
-    const response = await fetch(url, {
-        method: 'POST', // или 'PUT'
-        body: JSON.stringify(data), 
-        headers: {
-          'Content-Type': 'application/json'
-        }
+
+    function httpGet(theUrl)
+    {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+
+    const url = window.url;
+    setInterval(() => {
+        //console.log(document.getElementById("textfield").scrollTop)
+        document.getElementById("textfield").scrollTop = 9999;
+        let responseText = httpGet(window.location.href + "/raw");
+        if(responseText !== "bot not found")
+            document.getElementById("textfield").innerHTML = responseText;
+    },1000)
+    let posting = async (data) => {
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // или 'PUT'
+            body: JSON.stringify(data),
+            headers: {
+             'Content-Type': 'application/json'
+         }
     });
     return await response.json();
     } catch (error) {
@@ -67,9 +85,8 @@ try {
 }
   let enter = () => {
 
-    posting({command:document.getElementById('input').value})
+    posting({command:document.getElementById('input').value,name:document.title})
     document.getElementById("input").value = ""
-    document.getElementById("textfield").innerText = document.getElementById("textfield").innerText + "s"
   }
   let txtfield = document.getElementById("input");
   txtfield.addEventListener('keydown',(e)=>{

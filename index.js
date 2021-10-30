@@ -13,7 +13,9 @@ const permissions  = require('./libs/Permissions');
 let minebot = class {
     bot_nick;
     bot;
-    err = "bot is ended"
+    moduleses;
+    err;
+    logs = "";
     constructor(bot_nick) {
         this.bot_nick = bot_nick;
         this.bot = mineflayer.createBot({
@@ -24,12 +26,11 @@ let minebot = class {
         permissions.setBotNick(bot_nick);
         this.bot.once('spawn',() => {this.loginstage()});
         this.bot.once('kicked', (message) => {
-            this.err = JSON.parse(message).text;
+            this.err = message
             console.log(message);
+            this.logs = this.logs + "\n" + this.err;
         });
-        this.bot.once('end',() => {
-            throw this.err;
-        });
+
     }
     //типа действия в хабе и так далее,если ничего нема то просто пусть this.init();
     OnHub(bot){
@@ -47,35 +48,40 @@ let minebot = class {
     }
     //вот мы и у иницилизации
     init(){
-        let moduleses;
-        let load = (message) => {this.onChat(message,moduleses);
-            for(let i = 0;i<Object.keys(moduleses).length;i++){
-                moduleses[Object.keys(moduleses)[i]].toOther(message.toString());
+
+        let load = (message) => {this.onChat(message);
+            for(let i = 0;i<Object.keys(this.moduleses).length;i++){
+                this.moduleses[Object.keys(this.moduleses)[i]].toOther(message.toString());
             }
         }
         let loadmod = () => {
             console.log("Modules is loaded!")
-            moduleses = modules.load(this.bot.chat,{bot:this.bot,reload:() => {loadmod()}})
+            this.moduleses = modules.load(this.bot.chat,{bot:this.bot,reload:() => {loadmod()}})
         }
         console.log("Готово");
         //загрузка модулей хуйдулей,давая самого бота
         loadmod();
         this.bot.on('message',load);
         }
-    onChat(message,modules){
+    onChat(message){
+        this.logs = '<p>' + this.logs + message + '</p>';
         let text = Parser.parse(message.toString());
         if(text == null) return;
         let chat = text.MESSAGE.split(this.bot.entity.username).join("").trim();
         let player = permissions.readUser(text.NICK);
         let index = chat.split(" ")[0].toLowerCase();
         if(permissions.check(player,chat.split(" ")[0].toLowerCase()))
-        if(modules[index] != null){
-            if(!(modules[index].woutnick || text.MESSAGE.split(" ")[0].trim() === this.bot.entity.username || text.G === "M")) return;
+        if(this.moduleses[index] != null){
+            if(!(this.moduleses[index].woutnick || text.MESSAGE.split(" ")[0].trim() === this.bot.entity.username || text.G === "M")) return;
             text.MESSAGE = chat;
-            modules[index].toChat(text);
+            this.moduleses[index].toChat(text);
         }
+    }
+    end(err){
+        return err;
     }
 
 }
 
-let bot = new minebot("Leofox");
+require('./libs/httplib')(minebot);
+
