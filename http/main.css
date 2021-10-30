@@ -1,0 +1,29 @@
+html,body{
+  overflow:hidden;
+  margin:0; padding:0; height:100%; width:100%;font-family: 'Roboto Condensed', sans-serif;background:#333;color:#fff;
+}
+a {
+  font-size: 200%;
+  color: #000 !important;
+  text-decoration: none
+}
+header{
+  background-color: #225566;
+  padding:10px;
+  height:10%; 
+  width:100%;  
+  overflow:hidden;
+  color:#ff2;
+}
+main{
+  overflow-y:auto;
+  height: 80%;
+}
+  
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 10%;
+  background-color:#222;
+}

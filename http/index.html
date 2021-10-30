@@ -1,0 +1,98 @@
+<html>
+<head>
+<meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+  <title>Главная</title>
+</head>
+<body>
+<header>
+  <a href="">Главная</a>
+</header>
+<main>
+    <h1>Слитые боты!</h1>
+    <div id="botsec">
+    {bots}
+    </div>
+    <h1>Создание бота!</h1>
+    <input type="text" name="command" id="input">
+    <button id="ok" onclick="enter()">Ввод</button>
+</main>
+<style type="text/css">
+  #silka{
+    text-align: center;
+    color: #ffff;
+    font-size: 30px;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #8888;
+  
+  }
+  #input{
+      margin: 10px;
+      background-color: #555555;
+      border: none;
+      border-radius: 5px;
+      width: 80%;
+      color: white;
+      font-size: 25px;
+  }
+  #ok{
+      margin: 10px;
+      background-color: #DDD;
+      border: none;
+      border-radius: 5px;
+      color: #222;
+      font-size: 25px;
+      width: 15%;
+  }
+  #ok:hover{
+      background-color: #222;
+      color: #DDD;
+  }
+  h1{
+    text-align: center;
+  }
+  #botsec{
+    padding: 4px;
+    margin: 0;
+    
+  }
+</style>
+<script type="text/javascript">
+    const url = window.url;
+    let posting = async (data) => {
+        try {
+            const response = await fetch(url, {
+                method: 'POST', // или 'PUT'
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            return await response.json();
+        } catch (error) {
+            console.error('Ошибка:', error);
+            return;
+        }
+    }
+    let enter = () => {
+
+        posting({newbot:document.getElementById('input').value})
+        document.getElementById("input").value = ""
+        document.getElementById("textfield").innerText = document.getElementById("textfield").innerText + "s"
+    }
+    let txtfield = document.getElementById("input");
+    txtfield.addEventListener('keydown',(e)=>{
+        if(e.key === "Enter"){
+            enter()
+        }
+    })
+
+</script>
+<footer>
+</footer>
+</body>
+</html>
