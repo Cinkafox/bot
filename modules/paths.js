@@ -18,12 +18,6 @@ class Module {
             this.bot.chat(text.GM + "Не вижу его!");
             return;
         }
-        let delta = this.bot.entity.position.offset(-target.position.x,-target.position.y,-target.position.z).floor();
-        let lastblock =this.traceblock(this.bot.entity.position.offset(-delta.x,-delta.y+1,-delta.z), target.position,this.bot.world);
-        console.log(lastblock);
-        if(lastblock !== "air") {
-            //return;
-        }
         const { x: playerX, y: playerY, z: playerZ } = target.position
         this.bot.pathfinder.setMovements(this.defaultMove)
         this.bot.pathfinder.setGoal(new GoalNear(playerX, playerY, playerZ, 1))
