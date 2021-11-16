@@ -14,22 +14,8 @@ const type = {
     js:"text/js",
     png:"image/png",
 }
-let host = 'localhost';
-const port = 80;
-//биндим пацаны!
-try {
-    var address,
-        ifaces = require('os').networkInterfaces();
-    for (var dev in ifaces) {
-        ifaces[dev].filter((details) => details.family === 'IPv4' && details.internal === false ? address = details.address : undefined);
-    }
-    host = address
-}catch{
-
-}
-
-
-
+let host = '0.0.0.0';
+const port = process.env.PORT || 80;
 
 const requestListener = function (req, res) {
     let index = req.url.split("/");

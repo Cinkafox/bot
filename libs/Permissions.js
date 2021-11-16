@@ -43,8 +43,10 @@ let writeUser = (nick, group = "user", perms = []) => {
 let check = (arr,elem) =>{
     return (arr.indexOf(elem) !== -1);
 }
-module.exports.setBotNick = setNick;
-module.exports.readGroup = readGroup;
-module.exports.readUser = readUser;
-module.exports.writeUser = writeUser;
-module.exports.check = check;
+module.exports = {
+    setBotNick:setNick,
+    readGroup:readGroup,
+    readUser:readUser,
+    writeUser:writeUser,
+    check:check
+}

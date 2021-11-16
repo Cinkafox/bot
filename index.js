@@ -1,5 +1,6 @@
 const mineflayer = require('mineflayer');
 const fs = require('fs');
+const print = require('./libs/ToConsole');
 //конфиг читаем,так как мы забыли смартфон в туалет
 const config = JSON.parse(fs.readFileSync('config.json'));
 //этот чел отвечает за спиногрызов,тоесть модулей
@@ -18,6 +19,7 @@ let minebot = class {
     logs = "";
     constructor(bot_nick) {
         this.bot_nick = bot_nick;
+        print(bot_nick)
         this.bot = mineflayer.createBot({
             host: config.server.host,
             port: config.server.port,
@@ -27,7 +29,7 @@ let minebot = class {
         this.bot.once('spawn',() => {this.loginstage()});
         this.bot.once('kicked', (message) => {
             this.err = message
-            console.log(message);
+            print(message);
             this.logs = this.logs + "\n" + this.err;
         });
 
@@ -55,10 +57,10 @@ let minebot = class {
             }
         }
         let loadmod = () => {
-            console.log("Modules is loaded!")
-            this.moduleses = modules.load(this.bot.chat,{bot:this.bot,reload:() => {loadmod()}})
+            print("Modules is loaded!")
+            this.moduleses = modules.load(this.bot.chat,{bot:this.bot,reload:() => {loadmod()},print:print})
         }
-        console.log("Готово");
+        print("Готово");
         //загрузка модулей хуйдулей,давая самого бота
         loadmod();
         this.bot.on('message',load);
@@ -82,6 +84,6 @@ let minebot = class {
     }
 
 }
-
+//new minebot("Leofox");
 require('./libs/httplib')(minebot);
 
