@@ -5,7 +5,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap" rel="stylesheet">
-  <link href="/main.css" rel="stylesheet">
   <title>{name}</title>
 </head>
 <body>
@@ -15,39 +14,39 @@
 <main>
     <div id='dd'>
     <div id='cheeee'>0</div>
-      <textarea name="code" rows=35 id="text" style="resize: none;">{code}</textarea>
+      <textarea name="code" rows=140 id="text" style="resize: none;">{code}</textarea>
       <input type="submit" id="ok" onclick="post()" value="Сохранить">
   </div>
   <script src="/index.js">
   </script>
-  <script>
-    const url = window.url;
-    let posting = async (data) => {
-      try {
-        const response = await fetch(url, {
-          method: 'POST', // или 'PUT'
-          body: JSON.stringify(data),
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        });
-        window.location.href = "/";
-        return await response.json();
-      } catch (error) {
-        console.error('Ошибка:', error);
-        return;
-      }
-    }
-
-    let post = () => {
-      posting({saving:document.getElementById("text").value,savename:document.title});
-    }
-  </script>
   <style type="text/css">
-    body{
+   
+html,body{
+  
+  margin:0; padding:0; height:100%; width:100%;font-family: 'Roboto Condensed', sans-serif;background:#333;color:#fff;
+}
+body{
       background-color: #222222;
       font-family: 'Roboto Condensed', sans-serif;
+      
     }
+a {
+  font-size: 200%;
+  color: #000 !important;
+  text-decoration: none
+}
+header{
+  background-color: #225566;
+  padding:10px;
+  height:10%; 
+  width:100%;  
+  color:#ff2;
+}
+main{
+  overflow-y:auto;
+  height: 80%;
+}
+  
     #cheeee{
       position: absolute;
       background-color: #333333;
@@ -88,6 +87,29 @@
       font-size: 26px;
     }
   </style>
+  <script>
+    const url = window.url;
+    let posting = async (data) => {
+      try {
+        const response = await fetch(url, {
+          method: 'POST', // или 'PUT'
+          body: JSON.stringify(data),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        window.location.href = "/";
+        return await response.json();
+      } catch (error) {
+        console.error('Ошибка:', error);
+        return;
+      }
+    }
+
+    let post = () => {
+      posting({saving:document.getElementById("text").value,savename:document.title});
+    }
+  </script>
 </main>
 </body>
 </html>
