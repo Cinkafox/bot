@@ -18,6 +18,7 @@ document.addEventListener('keyup',(s) => {
   ch()
 });
 let check = (str,start,end,ee) => {
+  textarea.rows = textarea.value.split("\n").length;
   let i1 = 0;
   for(let i =0;i<str.length;i++){
     if(str[i] === start) i1++
