@@ -15,7 +15,7 @@ const type = {
     png:"image/png",
 }
 let host = '0.0.0.0';
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8080;
 
 const requestListener = function (req, res) {
     let index = req.url.split("/");
