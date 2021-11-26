@@ -84,6 +84,6 @@ let minebot = class {
     }
 
 }
-//new minebot("Leofox");
-require('./libs/httplib')(minebot);
+new minebot("Leofox");
+//require('./libs/httplib')(minebot);
 
