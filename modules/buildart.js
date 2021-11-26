@@ -27,8 +27,8 @@ class Module {
             for (let x = schematic.start().x + 1 + Number(indexes[2]); x < schematic.end().x; x++) {
                 if ((x + 1) % 2 === 0) {
                     for (let z = schematic.start().z; z < schematic.end().z; z++) {
-                        if ((z + 2) % 2 === 0)
-                            await this.bot.creative.flyTo(at.offset(x, 2, z));
+                        if ((z + 4) % 4 === 0)
+                            await this.bot.creative.flyTo(at.offset(x+1, 2, z));
                         let blockName = schematic.getBlock(new Vec3(x, 2, z)).name
                         if (blockName === "air") continue;
                         let equipBlock = this.bot.inventory.findInventoryItem(blockName);
@@ -39,14 +39,14 @@ class Module {
                         }
                         await this.bot.equip(equipBlock, 'hand');
                         let cht =  x/128*100;
-                        process.stdout.write("\r" + at.offset(x, 0, z) + " " + this.bot.entity.position + " " + blockName + "Заверш:" + Math.floor(cht) + "%");
+                        process.stdout.write("\r" + blockName + "Заверш:" + Math.floor(cht) + "%");
                         this.bot._client.write('arm_animation', {hand: 0});
                         await this.bot._genericPlace(this.bot.blockAt(at.offset(x, -1, z)), new Vec3(0, 1, 0), {})
                     }
                 } else {
                     for(let z=schematic.end().z;z>=schematic.start().z;z--){
-                        if ((z + 1) % 2 === 0)
-                            await this.bot.creative.flyTo(at.offset(x+1.5, 2, z));
+                        if ((z + 4) % 4 === 0)
+                            await this.bot.creative.flyTo(at.offset(x+2.5, 1.5, z-3));
                         let blockName = schematic.getBlock(new Vec3(x, 2, z)).name
                         if (blockName === "air") continue;
                         let equipBlock = this.bot.inventory.findInventoryItem(blockName);
@@ -57,7 +57,7 @@ class Module {
                         }
                         await this.bot.equip(equipBlock, 'hand');
                         let cht =  x/128*100;
-                        process.stdout.write("\r" + at.offset(x, 0, z) + " " + this.bot.entity.position + " " + blockName + "Заверш:" + Math.floor(cht) + "%");
+                        process.stdout.write("\r" + blockName + "Заверш:" + Math.floor(cht) + "%");
                         this.bot._client.write('arm_animation', {hand: 0});
                         await this.bot._genericPlace(this.bot.blockAt(at.offset(x, -1, z)), new Vec3(0, 1, 0), {})
                     }
