@@ -32,12 +32,12 @@ let minebot = class {
             print(message);
             this.logs = this.logs + "\n" + this.err;
         });
-
+    
     }
     //типа действия в хабе и так далее,если ничего нема то просто пусть this.init();
     OnHub(bot){
         bot.setControlState('forward',true);
-        bot.lookAt(new Vec3(-93,60,-675));
+        bot.lookAt(new Vec3(160,55,-830));
         setTimeout(() => {
             bot.setControlState('forward', false);
             this.init();
@@ -50,7 +50,14 @@ let minebot = class {
     }
     //вот мы и у иницилизации
     init(){
-
+        /*this.bot._client.on('packet',((data, packetMeta, buffer, fullBuffer) => {
+           if(data.entityId === undefined ||this.bot.entities[data.entityId] === undefined || this.bot.entities[data.entityId].type !== "player" || packetMeta.name === 'sound_effect') return;
+           console.log(packetMeta.name)
+           console.log(data)
+           console.log(this.bot.entities[data.entityId].username)
+           
+        }))
+        */
         let load = (message) => {this.onChat(message);
             for(let i = 0;i<Object.keys(this.moduleses).length;i++){
                 this.moduleses[Object.keys(this.moduleses)[i]].toOther(message.toString());
