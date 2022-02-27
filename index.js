@@ -37,7 +37,7 @@ let minebot = class {
     //типа действия в хабе и так далее,если ничего нема то просто пусть this.init();
     OnHub(bot){
         bot.setControlState('forward',true);
-        bot.lookAt(new Vec3(160,55,-830));
+        bot.lookAt(new Vec3(-4,139,-16));
         setTimeout(() => {
             bot.setControlState('forward', false);
             this.init();
